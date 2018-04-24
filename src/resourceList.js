@@ -2,14 +2,42 @@ import React, { Component } from 'react';
 import './skeleton.css'
 import './normalize.css'
 import './resourceList.css'
+import Resources from './resources'
 
 class ResourceList extends Component {
   static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33
-    },
-    zoom: 11
+    items: [
+      {
+        name: "glasses",
+        count: 15,
+        icon: "./imgs/glasses_icon.svg"
+      }, 
+      {
+        name: "socks",
+        count: 9,
+        icon: "./imgs/socks_icon.png"
+      }, 
+      {
+        name: "blankets",
+        count: 7,
+        icon: "./imgs/blanket_icon.png"
+      },
+      {
+        name: "haircut vouchers",
+        count: 13,
+        icon: "./imgs/haircut_icon.png"
+      },
+      {
+        name: "hygiene kits",
+        count: 17,
+        icon: "./imgs/hygiene_icon.png"
+      },
+      {
+        name: "feminine products",
+        count: 21,
+        icon: "./imgs/feminine_icon.png"
+      }
+    ]
   };
 
   render() {
@@ -30,7 +58,7 @@ class ResourceList extends Component {
           </nav>
         </div>
         <div>
-          <h1>Stuff</h1>
+          <Resources items={this.props.items} />
         </div>
       </div>
     );
