@@ -44,12 +44,12 @@ class ResourceList extends Component {
     return (
       <div className="list-container">
         <div className="row">
-          <h2>Resources given</h2>
+          <h2 className="resources-given">resources given</h2>
         </div>
         <div className="row">
-          <hr/>
+          
           <nav className="navigation primary">
-            <ul className="navbar-list">
+            <ul className="navbar-list" >
               <li className="navbar-item"><a className="navbar-link">Day</a></li>
               <li className="navbar-item"><a className="navbar-link">Month</a></li>
               <li className="navbar-item"><a className="navbar-link">Year</a></li>
