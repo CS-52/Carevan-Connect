@@ -13,6 +13,10 @@
     content: " | ";
 }
 
+.map {
+  padding: 0% 10%; /*first is top bottom, second left right*/
+}
+
 a {
   text-align: center;
   display: inline-block;
@@ -39,7 +43,7 @@ a.nav-link {
   float: left;
   color: #f2f2f2;
   /*padding: 14px 16px;*/
-  margin-left: 100px;
+  margin-left: 50px;
   text-decoration: none;
   letter-spacing: .1rem;
   font-size: 1.5em;
@@ -92,3 +96,73 @@ li.a:last-child {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.titlebanner {
+  width: 100%;
+  height: 100px;
+  background-color: #AF1E2D;
+  font-family: Roboto;
+  color: white;
+}
+
+
+
+
+.bigbuttonsandicannotlie{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-bottom: 10px;
+
+}
+
+.bts {
+  border-radius: 2px;
+  margin: 1px;
+}
+
+#today{
+  background-color: #AF1E2D;
+  color: white;
+  font-family: Roboto;
+  font-weight: Medium;
+  text-transform: none;
+}
+
+#month{
+  font-family: Roboto;
+  font-weight: Medium;
+  text-transform: none;
+}
+
+#year{
+  font-family: Roboto;
+  font-weight: Medium;
+  text-transform: none;
+}
+
+
+#allTime{
+  font-family: Roboto;
+  font-weight: Medium;
+  text-transform: none;
+}
+
+
+
+
+
+

@@ -42,25 +42,24 @@ class ResourceList extends Component {
 
   render() {
     return (
+
       <div className="list-container">
+      
         <div className="row">
           <h2 className="resources-given">resources given</h2>
         </div>
-        <div className="row">
-          
-          <nav className="navigation primary">
-            <ul className="navbar-list" >
-              <li className="navbar-item"><a className="navbar-link">Day</a></li>
-              <li className="navbar-item"><a className="navbar-link">Month</a></li>
-              <li className="navbar-item"><a className="navbar-link">Year</a></li>
-              <li className="navbar-item"><a className="navbar-link">All time</a></li>
-            </ul>
-          </nav>
+      
+
+        <div className = "bigbuttonsandicannotlie">
+              <button class="bts" id="today">today</button>
+              <button class="bts" id="month">month</button>
+              <button class="bts" id="year">year</button>
+              <button class="bts" id="allTime">all time</button>
         </div>
-        <div>
+
           <Resources items={this.props.items} />
-        </div>
       </div>
+
     );
   }
 }

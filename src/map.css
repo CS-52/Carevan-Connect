@@ -1,3 +1,7 @@
+.map {
+  padding: 10% 5%; /*first is top bottom, second left right*/
+}
+
 img {
     min-width: 50px;
     max-width: 50px;
