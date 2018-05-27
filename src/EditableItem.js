@@ -71,6 +71,7 @@ class Item extends Component {
               {this.renderCount()}
             </div>
             <button onClick={this.props.onIncrement} style={{ float: "left" }}> + </button>
+            <button onClick={this.props.onDelete} style={{ float: "right" }}> X </button>
           </div>
         </div>
       </li>

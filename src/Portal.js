@@ -10,7 +10,10 @@ class Portal extends Component {
   constructor() {
     super();
     this.state = {
-      resources: []
+      resources: [],
+      showNewResource: false,
+      newName: "",
+      newCount: ""
     };
   }
 
@@ -20,7 +23,6 @@ class Portal extends Component {
 
     resourceRef.on("value", snapshot => {
       let items = snapshot.val();
-      console.log(snapshot.val());
       const resources = [];
       for (let item in items) {
         const resource = {
@@ -34,10 +36,10 @@ class Portal extends Component {
     });
   }
 
+  // incrementing and decrementing count
   onCountClick = (e, id, delta) => {  
     e.preventDefault();
     var ref = firebase.database().ref('resources/' + id);
-    console.log(id, delta);
     ref.once('value').then(function (snapshot) {
       var newCount = snapshot.val().count + delta;
       ref.update({
@@ -46,13 +48,59 @@ class Portal extends Component {
     });
   };
 
-  onCountEdit = (e, id) => {
-    
+  deleteResource = id => {
+    const toDelete = firebase.database().ref("/resources/" + id);
+    toDelete.remove();
+  };
+
+  clearNewResource = () => {
+    this.setState({
+      newName: "",
+      newCount: "",
+      showNewResource: false
+    });
+  }
+
+  addNewResource = e => {
+    e.preventDefault();
+    this.setState({ newName: this.state.newName.trim(), newCount: this.state.newCount.trim() });
+    const countInt = parseInt(this.state.newCount);
+    if (!this.state.newName || isNaN(countInt) || countInt < 0) {
+      alert("Fields are invalid or blank.");
+    } else {
+      const resourceRef = firebase.database().ref('resources');
+      const item = {
+        name: this.state.newName,
+        count: countInt
+      };
+      resourceRef.push(item);
+      this.clearNewResource();
+    }
+  }
+
+  renderNewResource = () => {
+    if (this.state.showNewResource) {
+      return (
+        <div style={{margin: "10px"}} >
+          <input value={this.state.newName} 
+                 placeholder="Resource name"
+                 type="text" 
+                 onChange={e => this.setState({ newName: e.target.value })} />
+          <input value={this.state.newCount} 
+                 placeholder="Count"
+                 type="text" 
+                 onChange={e => this.setState({ newCount: e.target.value })} />
+          <div>
+            <button onClick={this.addNewResource} style={{ float: "left" }}> Add </button>
+            <button onClick={this.clearNewResource} style={{ float: "left" }}> Cancel </button>
+          </div>
+        </div>
+      );
+    } 
   }
 
 
   render() {
-    console.log(this.state.resources);
     return (
       <div className="Portal">
         <h1>Resources</h1>
@@ -63,9 +111,14 @@ class Portal extends Component {
               {...item}
               onIncrement={e => this.onCountClick(e, item.id, 1)} // this.onCountChange(item.id, 1)
               onDecrement={e => this.onCountClick(e, item.id, -1)} // this.onCountChange(item.id, -1)
+              onDelete={e => this.deleteResource(item.id)}
             />
           )}
         </ul>
+        <button style={{ margin: "10px" }} onClick={e => this.setState({showNewResource: true})}>
+          Add Resource
+        </button>
+        {this.renderNewResource()}
       </div>
     );
   }
