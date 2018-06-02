@@ -3,6 +3,7 @@ import firebase from "./firebase";
 import 'react-skeleton-css/styles/skeleton.2.0.4.css'
 import './Resources.css'
 import EditableItem from './EditableItem'
+import LocationPanel from './LocationPanel'
 
 
 class Portal extends Component {
@@ -11,16 +12,18 @@ class Portal extends Component {
     super();
     this.state = {
       resources: [],
+      /* State for new resource */
       showNewResource: false,
       newName: "",
-      newCount: ""
+      newCount: "",
+      newCategory: "clothing", // default
     };
   }
 
 
   componentDidMount() {
+    // get resources from database
     const resourceRef = firebase.database().ref("resources");
-
     resourceRef.on("value", snapshot => {
       let items = snapshot.val();
       const resources = [];
@@ -29,6 +32,8 @@ class Portal extends Component {
           id: item,
           name: items[item].name,
           count: items[item].count,
+          category: items[item].category,
+          outOfStock: items[item].outOfStock
         };
         resources.push(resource);
       }
@@ -36,34 +41,20 @@ class Portal extends Component {
     });
   }
 
-  // incrementing and decrementing count
-  onCountClick = (e, id, delta) => {  
-    e.preventDefault();
-    var ref = firebase.database().ref('resources/' + id);
-    ref.once('value').then(function (snapshot) {
-      var newCount = snapshot.val().count + delta;
-      ref.update({
-        count: (newCount >= 0) ? newCount : 0 
-      });
-    });
-  };
-
-  deleteResource = id => {
-    const toDelete = firebase.database().ref("/resources/" + id);
-    toDelete.remove();
-  };
-
   clearNewResource = () => {
     this.setState({
       newName: "",
       newCount: "",
+      newCategory: "",
       showNewResource: false
     });
   }
 
   addNewResource = e => {
-    e.preventDefault();
-    this.setState({ newName: this.state.newName.trim(), newCount: this.state.newCount.trim() });
+    this.setState({ newName: this.state.newName.trim(), 
+                    newCount: this.state.newCount.trim(),
+                    newCategory: this.state.newCategory.trim() });
+    console.log(this.state.newCategory);
     const countInt = parseInt(this.state.newCount);
     if (!this.state.newName || isNaN(countInt) || countInt < 0) {
       alert("Fields are invalid or blank.");
@@ -71,11 +62,19 @@ class Portal extends Component {
       const resourceRef = firebase.database().ref('resources');
       const item = {
         name: this.state.newName,
-        count: countInt
+        count: countInt,
+        category: this.state.newCategory,
+        outOfStock: false
       };
       resourceRef.push(item);
       this.clearNewResource();
     }
+  }
+
+  handleSelect = e => {
+    this.setState({ newCategory: e.target.value });
+    console.log("Set new category state:");
+    console.log(this.state.newCategory);
   }
 
   renderNewResource = () => {
@@ -90,6 +89,16 @@ class Portal extends Component {
                  placeholder="Count"
                  type="text" 
                  onChange={e => this.setState({ newCount: e.target.value })} />
+          <select name="Category"
+                  defaultValue={this.state.newCategory}
+                  onChange={this.handleSelect.bind(this)}>
+            <option value="clothing">Clothing</option>
+            <option value="equipment">Equipment</option>
+            <option value="food">Food</option>
+            <option value="hygiene">Hygiene</option>
+            <option value="info-vouchers">Info/Vouchers</option>
+            <option value="misc">Misc.</option>
+          </select>
           <div>
             <button onClick={this.addNewResource} style={{ float: "left" }}> Add </button>
             <button onClick={this.clearNewResource} style={{ float: "left" }}> Cancel </button>
@@ -99,19 +108,16 @@ class Portal extends Component {
     } 
   }
 
-
   render() {
     return (
-      <div className="Portal">
-        <h1>Resources</h1>
+      <div className="Portal" style={{margin: "20px"}}>
+        <LocationPanel />
+        <h1>Resources Given</h1>
         <ul className="resource-list">
           {this.state.resources.map((item, index) => 
             <EditableItem 
               key={index}
               {...item}
-              onIncrement={e => this.onCountClick(e, item.id, 1)} // this.onCountChange(item.id, 1)
-              onDecrement={e => this.onCountClick(e, item.id, -1)} // this.onCountChange(item.id, -1)
-              onDelete={e => this.deleteResource(item.id)}
             />
           )}
         </ul>
@@ -125,4 +131,5 @@ class Portal extends Component {
 }
 
 export default Portal;
-    
+
+

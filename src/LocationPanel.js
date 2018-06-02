@@ -1,0 +1,125 @@
+import React, { Component } from 'react';
+import firebase from "./firebase";
+import Geosuggest from 'react-geosuggest';
+import './geosuggest.css'
+
+import TimePicker from 'rc-time-picker';
+import 'rc-time-picker/assets/index.css';
+import moment from 'moment';
+
+const format = 'h:mm a';
+const now = moment().hour(0).minute(0);
+
+class LocationPanel extends Component {
+  constructor() {
+    super();
+    this.state = {
+      /* State for location info */
+      currentLocation: {},
+      nextLocation: {},
+      startTime: "",
+      endTime: "",
+    };
+  }
+
+
+  componentDidMount() {
+    // get location from database
+    const locationRef = firebase.database().ref("location");
+    locationRef.on("value", snapshot => {
+      let location = snapshot.val();
+      if (location) {
+        this.setState({
+          currentLocation: JSON.parse(JSON.stringify(location.currentLocation)),
+          nextLocation: JSON.parse(JSON.stringify(location.nextLocation)),
+          startTime: location.startTime,
+          endTime: location.endTime
+        });
+      }
+    });
+  }
+
+
+  onSuggestSelect = (suggest, current) => {
+    const {label, location, ...rest} = suggest;
+    if (current) {
+      this.setState({currentLocation: {label, location}});
+    } else {
+      this.setState({nextLocation: {label, location}});
+    }
+    console.log(this.state.currentLocation); 
+    console.log(this.state.nextLocation); 
+  }
+
+  onTimeChange = (value, start) => {
+    if (start) {
+      this.setState({startTime: value.format(format)});
+    } else {
+      this.setState({endTime: value.format(format)});
+    }
+    console.log(this.state.startTime);
+    console.log(this.state.endTime);
+  }
+
+  saveLocationInfo = e => {
+    const locationRef = firebase.database().ref("location");
+    locationRef.update({
+      currentLocation: this.state.currentLocation,
+      nextLocation: this.state.nextLocation,
+      startTime: this.state.startTime,
+      endTime: this.state.endTime
+    });
+  }
+
+  render() {
+    var fixtures = [
+      {label: 'SF Public Library', location: {lat: 37.7790819, lng: -122.41579609999997}},
+      {label: 'PHC Office', location: {lat: 37.77562, lng: -122.41995930000002}}
+    ];
+
+    return (
+      <div className="LocationContainer">
+        <h1>Location</h1>
+        <p>Where is the Carevan now?</p>
+        <span>
+          <Geosuggest 
+            initialValue={this.state.currentLocation.label}
+            fixtures={fixtures}
+            onSuggestSelect={suggest => this.onSuggestSelect(suggest, true)}
+          />
+        </span>
+
+        <p>How long will it be there?</p>
+        <span>Start:</span>
+        <TimePicker 
+          showSecond={false}
+          defaultValue={this.state.startTime ? moment(this.state.startTime, format): null}
+          className="xxx"
+          use12Hours 
+          format={format}
+          onChange={value => this.onTimeChange(value, true)}
+        />
+        <span>End:</span>    
+        <TimePicker 
+          showSecond={false}
+          defaultValue={this.state.endTime ? moment(this.state.endTime, format): null}
+          className="xxx"
+          use12Hours 
+          format={format}
+          onChange={value => this.onTimeChange(value, false)}
+        />
+
+        <p>Where will the Carevan go next?</p>
+        <Geosuggest 
+          initialValue={this.state.nextLocation.label}
+          fixtures={fixtures}
+          onSuggestSelect={suggest => this.onSuggestSelect(suggest, false)}
+        />
+
+        <button onClick={this.saveLocationInfo}>Save</button>
+      </div>
+    );
+  }
+}
+
+export default LocationPanel;

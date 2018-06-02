@@ -5,17 +5,21 @@ import firebase from "./firebase";
 class Item extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       editing: false,
-      value: this.props.count 
+      value: this.props.count,
+      outOfStock: this.props.outOfStock,
+      image: null
     };
+    this.getTestImage();
   }
 
 
-  handleDoubleClick = e => {
-    e.preventDefault();
-    this.setState({ editing: true });
-  };
+  // handleDoubleClick = e => {
+  //   e.preventDefault();
+  //   this.setState({ editing: true });
+  // };
 
 
   handleBlur = e => {
@@ -39,11 +43,47 @@ class Item extends Component {
     }
   }
 
+  // incrementing and decrementing count
+  onIncrement = (id, delta) => {  
+    var ref = firebase.database().ref('resources/' + id);
+    ref.once('value').then(function (snapshot) {
+      var newCount = snapshot.val().count + delta;
+      ref.update({
+        count: (newCount >= 0) ? newCount : 0 
+      });
+    });
+  };
+
+  deleteResource = id => {
+    if (window.confirm("Are you sure you want to delete this resource?")) {
+      const toDelete = firebase.database().ref("/resources/" + id);
+      toDelete.remove();
+    }
+  };
+
+  flipOutOfStock = id => {
+    this.setState({outOfStock: !this.state.outOfStock});
+    var ref = firebase.database().ref('resources/' + id);
+    ref.update({
+      outOfStock: this.state.outOfStock
+    });
+  }
+
+  getTestImage = () => {
+    var imageRef = firebase.storage().ref();
+    var genericsRef = imageRef.child("generics");
+    imageRef.child("generics/" + this.props.category + ".png").getDownloadURL().then(url => {
+      this.setState({image: url});
+    }).catch(error => {
+      console.log("Error fetching image");
+    });
+  }
+
 
   renderCount = () => {
     if (!this.state.editing) {
       return (
-        <div onDoubleClick={this.handleDoubleClick}>
+        <div onDoubleClick={e => this.setState({ editing: true })}>
           {this.props.count}
         </div>
       );
@@ -59,26 +99,36 @@ class Item extends Component {
   }
 
   render() {
+    var decoration = this.state.outOfStock ? "line-through" : "none"
+
     return (
       <li className="item">
         <div className="row vertical-center">
-          <div className="one-half column">
+          <div className="one-half column" style={{textDecoration: decoration}}>
             {this.props.name}
           </div> 
           <div className="one-half column">
-            <button onClick={this.props.onDecrement} style={{ float: "left" }}> - </button>
-            <div style={{margin: "10px", float: "left"}}>
+            <div style={{margin: "10px", float: "left", textDecoration: decoration}}>
               {this.renderCount()}
             </div>
-            <button onClick={this.props.onIncrement} style={{ float: "left" }}> + </button>
-            <button onClick={this.props.onDelete} style={{ float: "right" }}> X </button>
+            <button disabled={this.state.outOfStock} 
+                    onClick={e => this.onIncrement(this.props.id, 1)} 
+                    style={{ float: "left" }}>
+                    +
+            </button>
+            <button onClick={e => this.flipOutOfStock(this.props.id)} style={{ float: "left" }}> 
+              { this.state.outOfStock ? 
+                  "Mark back in stock" :
+                  "Mark out of stock"
+              } 
+            </button>
+            <button onClick={e => this.deleteResource(this.props.id)} style={{ float: "right" }}> X </button>
+            <img src={ this.state.image } alt="Image icon" />
           </div>
         </div>
       </li>
     );
   }
 }
-
-//<ItemCountField count={this.props.count} editing={this.state.editing}  />
 
 export default Item;
