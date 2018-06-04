@@ -3,8 +3,6 @@ import GoogleMapReact from 'google-map-react';
 import ReactHoverObserver from 'react-hover-observer';
 import './map.css'
 
-const AnyReactComponent = ({ text }) => <div><h1>{text}</h1></div>;
-
 const CarevanMarker = ({ imgSrc, isHovering = false }) => 
   <div>
     <img src={require("" + imgSrc)} alt="carevan marker" style={{width: "50px"}}/>
