@@ -21,9 +21,9 @@ class App extends Component {
         <img src={phc_logo} className="phc-logo" />
           <header className="App-header">
               <div className="navbar-it" id="first-link"><a href="http://www.projecthomelessconnect.org/about/" className="nav-link"> About Us <div className="arrow-down"></div> </a> </div> 
-              <div className="navbar-it"><a href="http://www.projecthomelessconnect.org/programs/" className="nav-link">Programs <div className="arrow-down"></div> </a> </div>
-              <div className="navbar-it"><a href="http://www.projecthomelessconnect.org/volunteer/" className="nav-link">Volunteer <div className="arrow-down"></div> </a></div>
-              <div className="navbar-it" id="last-link"><a href="http://www.projecthomelessconnect.org/donate/" className="nav-link">Donate <div className="arrow-down"></div> </a></div>
+              <div className="navbar-it"><a href="www.projecthomelessconnect.org/programs/" className="nav-link">Programs <div className="arrow-down"></div> </a> </div>
+              <div className="navbar-it"><a href="www.projecthomelessconnect.org/volunteer/" className="nav-link">Volunteer <div className="arrow-down"></div> </a></div>
+              <div className="navbar-it" id="last-link"><a href="www.projecthomelessconnect.org/donate/" className="nav-link">Donate <div className="arrow-down"></div> </a></div>
            
           </header>
         </div> 
@@ -73,12 +73,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-// service firebase.storage {
-//   match /b/{bucket}/o {
-//     match /{allPaths=**} {
-//       allow read, write: if request.auth != null;
-//     }
-//   }
-// }

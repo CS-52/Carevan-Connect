@@ -1,7 +1,11 @@
-img {
+.map {
+  padding: 5% 5%; /*first is top bottom, second left right*/
+}
+
+/*img {
     min-width: 50px;
     max-width: 50px;
-}
+}*/
 
 .popup-box {
     padding: 10px;

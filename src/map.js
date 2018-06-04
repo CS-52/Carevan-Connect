@@ -3,8 +3,6 @@ import GoogleMapReact from 'google-map-react';
 import ReactHoverObserver from 'react-hover-observer';
 import './map.css'
 
-const AnyReactComponent = ({ text }) => <div><h1>{text}</h1></div>;
-
 const CarevanMarker = ({ imgSrc, isHovering = false }) => 
   <div>
     <img src={require("" + imgSrc)} alt="carevan marker" style={{width: "50px"}}/>
@@ -23,7 +21,7 @@ const CarevanMarker = ({ imgSrc, isHovering = false }) =>
 class SimpleMap extends Component {
   static defaultProps = {
     center: {
-      lat: 37.755,
+      lat: 37.765,
       lng: -122.44
     },
 
@@ -38,7 +36,7 @@ class SimpleMap extends Component {
   render() {
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: '100vh', width: '100%' }}>
+      <div style={{ height: '70vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyDHn-dZxlUhkA6nOqLGRDCi2hTr7Zkno9s" }}
           defaultCenter={this.props.center}
@@ -59,5 +57,3 @@ class SimpleMap extends Component {
 }
 
 export default SimpleMap;
-
-//'Hello from Carevan Connect'
