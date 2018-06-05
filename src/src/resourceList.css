@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.resources-given {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 10px;
+  margin-top: 40px;
+  font-size: 2.6em;
+}
+
+
+.navbar {
+  display: none;
+  }
+
+.list-container {
+  padding: 0% 10%; /*first is top bottom, second left right*/
+  text-align: center;
+  font-family: Roboto; 
+  width: 33vw;
+}
+
+/* Navbar */
+.navbar + .docs-section {
+  border-top-width: 0; }
+.navbar,
+.navbar-spacer {
+  display: block;
+  width: 100%;
+  height: 6.5rem;
+  background: #fff;
+  z-index: 99;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee; }
+.navbar-spacer {
+  display: none; }
+.navbar > .container {
+  width: 100%; }
+.navbar-list {
+  /*padding: 30px;*/
+  list-style: none;
+  margin-bottom: 0px; 
+  margin-left: 29px; 
+}
+.navbar-item {
+  position: relative;
+  float: left;
+  margin-bottom: 0; 
+  border-right: 1px;
+  text-align: left;
+  display: inline-block;
+}
+
+.navbar-link {
+  /*text-transform: uppercase;*/
+  font-size: 11px;
+  font-weight: 600;
+  /*letter-spacing: .2rem;*/
+  margin-right: 35px;
+  text-decoration: none;
+  line-height: 6.5rem;
+  color: #222; 
+  text-align: center;
+}
+a {
+  text-align: center;
+  display: inline-block;
+}
+
+
+.navbar-link.active {
+  color: #33C3F0; }
+.has-docked-nav .navbar {
+  position: fixed;
+  top: 0;
+  left: 0; }
+.has-docked-nav .navbar-spacer {
+  display: block; }
+/* Re-overiding the width 100% declaration to match size of % based container */
+.has-docked-nav .navbar > .container {
+  width: 80%; }
+
+
+/* Resources */
+
+ul.resource-list {
+    list-style: none;
+    border-top: 1px solid #bbb;
+   /* padding: 30px;*/
+}
+
+li.item {
+    margin: 0px;
+    padding: 10px 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+.resourceimg {
+    width: 50%;
+    max-width:45px;
+    max-height:100%;
+}
+
+.vertical-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;   
+  width: 100%;
+  height: 20%; 
+}

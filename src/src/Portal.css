@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+/* Changes font to Roboto */
+.allRobotoAllTheTime {
+  font-family: 'Roboto';
+}
+
+/* Changes font color to PHC red and bold */
+.Redderizer {
+ color: #AF1E2D;
+ font-weight: normal;
+}
+
+/* Gives space between "location" and "resources given" */
+.gimmeSomeSpace {
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+
+/* volunteer portal */
+.title {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  
+  width: 100%;
+  height: 80px;
+  background-color: #AF1E2D;
+
+  font-family: Roboto;
+  color: white;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.titleText{
+  font-weight: bold;
+  font-size: 50px;
+  text-align: center;
+}
+
+/* for update location and update resources titles */
+.lilTitle {
+	font-size: 50px;
+	font-weight: normal;
+}
+
+/* for location icon */
+.lilTitlePic {
+	float: left;
+	margin-right: 10px;
+}
+
+/* for resources icon */
+.lilTitlePic2 {
+	float: left;
+	margin-left: 10px;
+	margin-right: 20px;
+}
+
+/* For the Mark out of Stock button. */
+.portalButton {
+  border-radius: 2px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* Puts buttons in line. */
+#portalButton2 div{
+  display:inline-block;
+}
+
+/* For the Count button. Gives an all-around margin. */
+.portalButton3 {
+	margin: 10px;
+}
+
+/* For the Cancel button and To option (under location). Gives a left margin. */
+.portalButton4 {
+	margin-left: 10px;
+}
+
+.portalButton5 {
+	margin-left: 2px;
+}

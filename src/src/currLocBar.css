@@ -1,0 +1,60 @@
+/*@import url('https://fonts.googleapis.com/css?family=Roboto');*/
+
+.location-bar {
+	display: flex;
+	margin-left: 20px;
+	margin-top: -5px;
+}
+
+
+.red-pin {
+	padding-top: 45px;
+    width: 90px; 
+    height: 115px;
+}
+
+.location-text {
+	padding-top: 45px;
+	font-family: 'Roboto', sans-serif;
+	text-align: left;
+	padding-left: 20px;
+}
+
+.intro-line {
+	
+	font-weight: 900;
+	font-size: 32px;
+	/*color: #AF1E2D;*/
+	color: #c62535;
+}
+
+.loc-line {
+	font-size: 22px;
+	font-weight: 900;
+	color: black;
+}
+
+.address-line {
+	font-size: 18px;
+	font-weight: 500;
+	color: black;
+}
+
+.editable-info{
+	display: flex;
+	justify-content: space-between;
+}
+
+.from-next-field{
+	font-weight: 900;
+	font-size: 18px;
+	padding-right: 4px;
+	color: #c62535;
+}
+
+.info-field {
+	font-size: 16px;
+	font-weight: 400;
+	color: black;
+	padding-right: 15px;
+}
