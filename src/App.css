@@ -103,12 +103,16 @@ a.nav-link {
 }
 */
 
+.header-row {
+  position: relative;
+}
+
 .phc-logo {
   max-width: 210px;
   max-height: 70px;
   top: 10px;
   left: 100px;
-  position: fixed;
+  position: absolute;
 
 }
 

@@ -2,6 +2,8 @@
 
 .location-bar {
 	display: flex;
+	margin-left: 20px;
+	margin-top: -5px;
 }
 
 

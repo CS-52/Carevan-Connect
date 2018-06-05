@@ -6,22 +6,21 @@ import './skeleton.css'
 
 class CurrLocBar extends Component {
   render() {
-    return (
-      
+    return (     
       <div className="location-bar">
         <img src={redPin} className="red-pin"/> 
         <div className="location-text">
           <div class="intro-line"> THE CAREVAN IS CURRENTLY AT </div>
-          <div class="loc-line"> Martin de Porres House of Hospitality </div>
-          <div class="address-line"> 225 Potrero Ave, San Francisco, 94103 </div>
+          <div class="loc-line"> {this.props.curr.label.split(",")[0]} </div>
+          <div class="address-line"> {this.props.curr.label} </div>
           <div className="editable-info">
             <div>
-              <span class="from-next-field"> FROM</span>
-              <span class="info-field">  3:00 PM - 5:00 PM </span>
+              <span class="from-next-field"> FROM </span>
+              <span class="info-field">  {this.props.start} - {this.props.end} </span>
             </div>
             <div>
-              <span class="from-next-field"> NEXT STOP</span>
-              <span class="info-field">  San Francisco Public Library</span>
+              <span class="from-next-field"> NEXT STOP </span>
+              <span class="info-field">  {this.props.next.label.split(",")[0]} </span>
             </div>
           </div>
         </div>

@@ -69,10 +69,6 @@ a {
   display: inline-block;
 }
 
-.bts {
-  margin: 0px 5px 5px 5px;
-}
-
 
 .navbar-link.active {
   color: #33C3F0; }
@@ -85,3 +81,33 @@ a {
 /* Re-overiding the width 100% declaration to match size of % based container */
 .has-docked-nav .navbar > .container {
   width: 80%; }
+
+
+/* Resources */
+
+ul.resource-list {
+    list-style: none;
+    border-top: 1px solid #bbb;
+   /* padding: 30px;*/
+}
+
+li.item {
+    margin: 0px;
+    padding: 10px 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+.resourceimg {
+    width: 50%;
+    max-width:45px;
+    max-height:100%;
+}
+
+.vertical-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;   
+  width: 100%;
+  height: 20%; 
+}

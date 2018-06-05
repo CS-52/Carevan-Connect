@@ -3,15 +3,17 @@ import GoogleMapReact from 'google-map-react';
 import ReactHoverObserver from 'react-hover-observer';
 import './map.css'
 
-const CarevanMarker = ({ imgSrc, isHovering = false }) => 
+const CarevanMarker = ({ locationSet, resources, isHovering = false }) => 
   <div>
-    <img src={require("" + imgSrc)} alt="carevan marker" style={{width: "50px"}}/>
+    <img src={require("./imgs/caravan.png")} alt="carevan marker" 
+         style={{width: "50px", visibility: locationSet ? "visible" : "hidden" }}/>
     {isHovering ? 
       <div className="popup-box">
         <h6>Resources Available</h6>
-        <p>glasses: 5</p>
-        <p>socks: 9</p>
-        <p>haircut vouchers: 30</p>
+        {resources.filter(item => !item.outOfStock)
+                  .map(item => 
+            <p>{item.name}</p>
+        )}
       </div>
       : null
     }
@@ -26,14 +28,16 @@ class SimpleMap extends Component {
     },
 
     carevan: {
-      lat: 37.7791,
-      lng: -122.4158,
-      imgSrc: "./imgs/caravan.png"
+      location: {
+        lat: 37.7791,
+        lng: -122.4158,
+      } 
     },
     zoom: 13
   };
 
   render() {
+    console.log(this.props.resources);
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '70vh', width: '100%' }}>
@@ -43,11 +47,12 @@ class SimpleMap extends Component {
           defaultZoom={this.props.zoom}
         >
           <ReactHoverObserver 
-            lat={this.props.carevan.lat}
-            lng={this.props.carevan.lng}>
+            lat={this.props.carevan.location.lat}
+            lng={this.props.carevan.location.lng}>
             
             <CarevanMarker    
-              imgSrc={this.props.carevan.imgSrc}
+              locationSet={this.props.carevan.location != ""}
+              resources={this.props.resources}
             />
           </ReactHoverObserver>
         </GoogleMapReact>

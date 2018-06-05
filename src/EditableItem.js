@@ -16,12 +16,6 @@ class Item extends Component {
   }
 
 
-  // handleDoubleClick = e => {
-  //   e.preventDefault();
-  //   this.setState({ editing: true });
-  // };
-
-
   handleBlur = e => {
     if (this.state.editing) {
       this.setState({ editing: false });
@@ -62,17 +56,19 @@ class Item extends Component {
   };
 
   flipOutOfStock = id => {
-    this.setState({outOfStock: !this.state.outOfStock});
+    var newAvail = !this.state.outOfStock;
+    this.setState({outOfStock: newAvail});
     var ref = firebase.database().ref('resources/' + id);
     ref.update({
-      outOfStock: this.state.outOfStock
+      outOfStock: newAvail
     });
   }
 
   getTestImage = () => {
     var imageRef = firebase.storage().ref();
     var genericsRef = imageRef.child("generics");
-    imageRef.child("generics/" + this.props.category + ".png").getDownloadURL().then(url => {
+     imageRef.child("generics/" + this.props.category + ".png").getDownloadURL().then(url => {
+    //imageRef.child("icons/socks_icon.png").getDownloadURL().then(url => {
       this.setState({image: url});
     }).catch(error => {
       console.log("Error fetching image");
@@ -123,7 +119,7 @@ class Item extends Component {
               } 
             </button>
             <button onClick={e => this.deleteResource(this.props.id)} style={{ float: "right" }}> X </button>
-            <img src={ this.state.image } alt="Image icon" />
+            <img src={ this.state.image } style={{width: "50px", height: "50px"}} alt="Image icon" />
           </div>
         </div>
       </li>

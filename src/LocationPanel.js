@@ -8,7 +8,6 @@ import 'rc-time-picker/assets/index.css';
 import moment from 'moment';
 
 const format = 'h:mm a';
-const now = moment().hour(0).minute(0);
 
 class LocationPanel extends Component {
   constructor() {
@@ -18,7 +17,7 @@ class LocationPanel extends Component {
       currentLocation: {},
       nextLocation: {},
       startTime: "",
-      endTime: "",
+      endTime: ""
     };
   }
 
@@ -41,6 +40,7 @@ class LocationPanel extends Component {
 
 
   onSuggestSelect = (suggest, current) => {
+    if (!suggest) return;
     const {label, location, ...rest} = suggest;
     if (current) {
       this.setState({currentLocation: {label, location}});
@@ -73,8 +73,8 @@ class LocationPanel extends Component {
 
   render() {
     var fixtures = [
-      {label: 'SF Public Library', location: {lat: 37.7790819, lng: -122.41579609999997}},
-      {label: 'PHC Office', location: {lat: 37.77562, lng: -122.41995930000002}}
+      {label: 'SFPL Main Library, Larkin Street, San Francisco, CA, USA', location: {lat: 37.7790819, lng: -122.41579609999997}},
+      {label: 'Project Homeless Connect, Van Ness Avenue, San Francisco, CA, USA', location: {lat: 37.77562, lng: -122.41995930000002}}
     ];
 
     return (

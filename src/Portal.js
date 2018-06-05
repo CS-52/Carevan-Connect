@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import firebase from "./firebase";
 import 'react-skeleton-css/styles/skeleton.2.0.4.css'
-import './Resources.css'
+import './resourceList.css'
 import EditableItem from './EditableItem'
 import LocationPanel from './LocationPanel'
 

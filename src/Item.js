@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import './Resources.css'
+import firebase from './firebase'
+import './resourceList.css'
 import './skeleton.css'
 
 class Item extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    console.log(this.props.icon);
     return (
       <li className="item">
         <div className="row vertical-center">
@@ -23,3 +29,6 @@ class Item extends Component {
 }
 
 export default Item;
+
+//<img class="resourceimg" src={require("" + this.props.icon)} alt="glasses icon" />
+//<img class="resourceimg" src={ this.state.img } alt={this.props.name + " icon"} />
